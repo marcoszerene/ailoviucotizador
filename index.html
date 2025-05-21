@@ -1,243 +1,227 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2299.77">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotizador Ailoviu - Diseño y Branding</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .table-container { max-height: 400px; overflow-y: auto; }
   </style>
 </head>
-<body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="es"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Cotizador Ailoviu - Diseño y Branding&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>body { font-family: 'Inter', sans-serif; }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.table-container { max-height: 400px; overflow-y: auto; }</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body class="bg-gray-100 min-h-screen flex flex-col items-center py-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1 class="text-3xl font-bold text-center text-gray-800 mb-6"&gt;Cotizador Ailoviu&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="text-center text-gray-600 mb-8"&gt;Selecciona los servicios para generar tu presupuesto personalizado.&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Formulario --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="space-y-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-sm font-medium text-gray-700"&gt;Categoría&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;select id="category-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value=""&gt;Selecciona una categoría&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Branding e Identidad"&gt;Branding e Identidad&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Diseño Digital (Web)"&gt;Diseño Digital (Web)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Diseño de Packaging"&gt;Diseño de Packaging&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Diseño de Espacios Físicos"&gt;Diseño de Espacios Físicos&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Multimedia e Impresión"&gt;Multimedia e Impresión&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Estrategia de Redes Sociales"&gt;Estrategia de Redes Sociales&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Gráfica Vehicular"&gt;Gráfica Vehicular&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-sm font-medium text-gray-700"&gt;Nivel&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;select id="level-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value=""&gt;Selecciona un nivel&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Básico"&gt;Básico&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Estándar"&gt;Estándar&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Premium"&gt;Premium&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Mensual"&gt;Mensual (Redes Sociales)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-sm font-medium text-gray-700"&gt;Cantidad&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;input type="number" id="quantity-1" min="1" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;button id="add-service" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"&gt;Añadir Servicio&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tabla de Resultados --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mt-8 table-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;table class="w-full text-left border-collapse"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tr class="bg-gray-200"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th class="py-2 px-4"&gt;Categoría&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th class="py-2 px-4"&gt;Nivel&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th class="py-2 px-4"&gt;Cantidad&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th class="py-2 px-4"&gt;Precio (USD)&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th class="py-2 px-4"&gt;Plazo (Días)&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;th class="py-2 px-4"&gt;Entregables&lt;/th&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/thead&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tbody id="services-table"&gt;&lt;/tbody&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;tfoot&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;tr class="font-bold bg-gray-100"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td colspan="3" class="py-2 px-4"&gt;Total&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="total-price" class="py-2 px-4"&gt;$0&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td id="total-days" class="py-2 px-4"&gt;0 días&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;td class="py-2 px-4"&gt;&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/tr&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/tfoot&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/table&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Botón de Exportar --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;button id="export-pdf" class="mt-6 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"&gt;Exportar a PDF&lt;/button&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Notas --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mt-8 text-sm text-gray-600"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;&lt;strong&gt;Notas:&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;ul class="list-disc pl-5"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Ajustes por complejidad: +20% por entregables adicionales, +50% por proyectos estratégicos.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Revisiones: Básico (1), Estándar (2), Premium (3). Adicional: USD 300, +5 días.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;Términos de Pago: Básico (60%/40%), Estándar/Premium (50%/50%). Mensual: pago del 1-10.&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Datos de paquetes (basado en el CSV actualizado)</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const packages = [</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Branding e Identidad", level: "Básico", price: 1500, days: 20, deliverables: "Brief inicial, Diseño de logotipo (2 propuestas, 1 revisión), Paleta de colores, Tipografía básica, Tarjeta de presentación digital" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Branding e Identidad", level: "Estándar", price: 3000, days: 30, deliverables: "Brief inicial, Diseño de logotipo (3 propuestas, 2 revisiones), Identidad visual (colores, tipografías, gráficos), Tarjeta, Firma de email, Membrete, Manual de marca básico" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Branding e Identidad", level: "Premium", price: 4500, days: 40, deliverables: "Brief inicial, Naming (3-5 propuestas), Estrategia conceptual, Diseño de logotipo (3 propuestas, 3 revisiones), Identidad visual completa, Tarjeta, Membrete, Sticker/Bolsa/Postal, Amenities (champú, jabón), Manual de marca completo" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño Digital (Web)", level: "Básico", price: 1000, days: 20, deliverables: "Diseño de landing page (1 propuesta, 1 revisión, AI/PSD/PDF), Propuesta visual básica, Botón WhatsApp" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño Digital (Web)", level: "Estándar", price: 2000, days: 25, deliverables: "Diseño de landing page (2 propuestas, 2 revisiones, AI/PSD/PDF), Propuesta de contenido, Banners adicionales, WordPress" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño Digital (Web)", level: "Premium", price: 3500, days: 30, deliverables: "Diseño de landing page + 2 páginas (2 propuestas, 3 revisiones), Estrategia UX básica, Guía de estilo digital, WordPress, Botón WhatsApp" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño de Packaging", level: "Básico", price: 2500, days: 40, deliverables: "Diseño de packaging para 1 línea (1-2 formatos, 2 propuestas, 1 revisión), Archivos para impresión" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño de Packaging", level: "Estándar", price: 4000, days: 50, deliverables: "Diseño de packaging para 2-3 líneas (2 formatos/línea, 3 propuestas, 2 revisiones), Manual de aplicación" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño de Packaging", level: "Premium", price: 6000, days: 60, deliverables: "Diseño de packaging para 4+ líneas (3 formatos/línea, 3 propuestas, 3 revisiones), Estrategia de marca, Propuesta de materiales" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño de Espacios Físicos", level: "Básico", price: 3000, days: 40, deliverables: "Diseño conceptual de 1 espacio (1 propuesta, 1 revisión), Sugerencias de materiales, Cartelería básica" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño de Espacios Físicos", level: "Estándar", price: 5000, days: 60, deliverables: "Diseño de 2-3 espacios (2 propuestas, 2 revisiones), Manual de implementación básico" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Diseño de Espacios Físicos", level: "Premium", price: 8000, days: 90, deliverables: "Masterplan, Zonificación, Diseño de múltiples espacios (2 propuestas, 3 revisiones), Dirección creativa, Señalética, Branding aplicado" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Multimedia e Impresión", level: "Básico", price: 1500, days: 20, deliverables: "Diseño de 1 pieza multimedia/folleto (1 propuesta, 1 revisión), Archivos para producción" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Multimedia e Impresión", level: "Estándar", price: 2500, days: 30, deliverables: "Diseño de 2 piezas (2 propuestas, 2 revisiones), Guía de estilo" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Multimedia e Impresión", level: "Premium", price: 4000, days: 40, deliverables: "Diseño de 3+ piezas (2 propuestas, 3 revisiones), Estrategia visual, Coordinación con proveedores, Brochure digital/imprimible" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Estrategia de Redes Sociales", level: "Básico", price: 1500, days: 20, deliverables: "Auditoría de Instagram, Pilares de contenido, Tono de marca, 2 plantillas, Moodboard, Paleta de colores" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Estrategia de Redes Sociales", level: "Estándar", price: 2500, days: 30, deliverables: "Auditoría, Pilares de contenido, Tono de marca, 4 plantillas, Dirección de 1 sesión foto/video, Manual de estilo" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Estrategia de Redes Sociales", level: "Premium", price: 3500, days: 40, deliverables: "Auditoría, Estrategia para 2 plataformas, 6 plantillas, Dirección de foto/video, Grilla mensual" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Estrategia de Redes Sociales", level: "Mensual", price: 500, days: 30, deliverables: "8 posteos/mes, 4 stories/semana, Interacción básica" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Gráfica Vehicular", level: "Básico", price: 1500, days: 20, deliverables: "Diseño de gráfica para 1 vehículo (1 propuesta, 1 revisión), Archivos para producción" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Gráfica Vehicular", level: "Estándar", price: 2500, days: 30, deliverables: "Diseño de gráfica para 2-3 vehículos (2 propuestas, 2 revisiones), Guía de aplicación" },</p>
-<p class="p1"><span class="Apple-converted-space">      </span>{ category: "Gráfica Vehicular", level: "Premium", price: 3500, days: 40, deliverables: "Diseño de gráfica para 4+ vehículos (3 propuestas, 3 revisiones), Estrategia de marca vehicular, Gestión de proveedores" }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>];</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>let serviceCount = 1;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Añadir nuevo servicio</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('add-service').addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>serviceCount++;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const serviceDiv = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>serviceDiv.className = 'grid grid-cols-1 md:grid-cols-3 gap-4 mt-4';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>serviceDiv.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-sm font-medium text-gray-700"&gt;Categoría&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;select id="category-${serviceCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value=""&gt;Selecciona una categoría&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>${packages.map(p =&gt; p.category).filter((v, i, a) =&gt; a.indexOf(v) === i).map(c =&gt; `&lt;option value="${c}"&gt;${c}&lt;/option&gt;`).join('')}</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-sm font-medium text-gray-700"&gt;Nivel&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;select id="level-${serviceCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value=""&gt;Selecciona un nivel&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Básico"&gt;Básico&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Estándar"&gt;Estándar&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Premium"&gt;Premium&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;option value="Mensual"&gt;Mensual (Redes Sociales)&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-sm font-medium text-gray-700"&gt;Cantidad&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;input type="number" id="quantity-${serviceCount}" min="1" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.querySelector('.space-y-4').insertBefore(serviceDiv, document.getElementById('add-service'));</p>
-<p class="p1"><span class="Apple-converted-space">      </span>updateTable();</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Actualizar tabla</p>
-<p class="p1"><span class="Apple-converted-space">    </span>function updateTable() {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const tableBody = document.getElementById('services-table');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>tableBody.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let totalPrice = 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let maxDays = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let i = 1; i &lt;= serviceCount; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const category = document.getElementById(`category-${i}`)?.value || '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const level = document.getElementById(`level-${i}`)?.value || '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const quantity = parseInt(document.getElementById(`quantity-${i}`)?.value || 1);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (category &amp;&amp; level) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const pkg = packages.find(p =&gt; p.category === category &amp;&amp; p.level === level);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (pkg) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const row = document.createElement('tr');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>row.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;td class="py-2 px-4"&gt;${category}&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;td class="py-2 px-4"&gt;${level}&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;td class="py-2 px-4"&gt;${quantity}&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;td class="py-2 px-4"&gt;$${pkg.price * quantity}&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;td class="py-2 px-4"&gt;${pkg.days} días&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;td class="py-2 px-4"&gt;${pkg.deliverables}&lt;/td&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>tableBody.appendChild(row);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>totalPrice += pkg.price * quantity;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>maxDays = Math.max(maxDays, pkg.days);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('total-price').textContent = `$${totalPrice}`;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('total-days').textContent = `${maxDays} días`;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Exportar a PDF</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('export-pdf').addEventListener('click', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const { jsPDF } = window.jspdf;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const doc = new jsPDF();</p>
-<p class="p1"><span class="Apple-converted-space">      </span>doc.setFontSize(18);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>doc.text('Presupuesto Ailoviu', 20, 20);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>doc.setFontSize(12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>let y = 30;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>for (let i = 1; i &lt;= serviceCount; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const category = document.getElementById(`category-${i}`)?.value || '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const level = document.getElementById(`level-${i}`)?.value || '';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const quantity = parseInt(document.getElementById(`quantity-${i}`)?.value || 1);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (category &amp;&amp; level) {</p>
-<p class="p1"><span class="Apple-converted-space">          </span>const pkg = packages.find(p =&gt; p.category === category &amp;&amp; p.level === level);</p>
-<p class="p1"><span class="Apple-converted-space">          </span>if (pkg) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>doc.text(`Categoría: ${category}`, 20, y);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>doc.text(`Nivel: ${level}`, 20, y + 5);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>doc.text(`Cantidad: ${quantity}`, 20, y + 10);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>doc.text(`Precio: $${pkg.price * quantity}`, 20, y + 15);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>doc.text(`Plazo: ${pkg.days} días`, 20, y + 20);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>doc.text(`Entregables: ${pkg.deliverables}`, 20, y + 25, { maxWidth: 160 });</p>
-<p class="p1"><span class="Apple-converted-space">            </span>y += 35;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>doc.text(`Total: $${document.getElementById('total-price').textContent.slice(1)}`, 20, y);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>doc.text(`Plazo Total: ${document.getElementById('total-days').textContent}`, 20, y + 5);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>doc.text('Notas: Ajustes por complejidad (+20%/+50%). Revisiones: Básico (1), Estándar (2), Premium (3).', 20, y + 15, { maxWidth: 160 });</p>
-<p class="p1"><span class="Apple-converted-space">      </span>doc.save('Presupuesto_Ailoviu.pdf');</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>// Actualizar tabla en cambios</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.querySelector('.space-y-4').addEventListener('change', updateTable);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>document.querySelector('.space-y-4').addEventListener('input', updateTable);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
+  <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Cotizador Ailoviu</h1>
+    <p class="text-center text-gray-600 mb-8">Selecciona los servicios para generar tu presupuesto personalizado.</p>
+
+    <!-- Formulario -->
+    <div class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Categoría</label>
+          <select id="category-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <option value="">Selecciona una categoría</option>
+            <option value="Branding e Identidad">Branding e Identidad</option>
+            <option value="Diseño Digital (Web)">Diseño Digital (Web)</option>
+            <option value="Diseño de Packaging">Diseño de Packaging</option>
+            <option value="Diseño de Espacios Físicos">Diseño de Espacios Físicos</option>
+            <option value="Multimedia e Impresión">Multimedia e Impresión</option>
+            <option value="Estrategia de Redes Sociales">Estrategia de Redes Sociales</option>
+            <option value="Gráfica Vehicular">Gráfica Vehicular</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nivel</label>
+          <select id="level-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <option value="">Selecciona un nivel</option>
+            <option value="Básico">Básico</option>
+            <option value="Estándar">Estándar</option>
+            <option value="Premium">Premium</option>
+            <option value="Mensual">Mensual (Redes Sociales)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Cantidad</label>
+          <input type="number" id="quantity-1" min="1" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        </div>
+      </div>
+      <button id="add-service" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Añadir Servicio</button>
+    </div>
+
+    <!-- Tabla de Resultados -->
+    <div class="mt-8 table-container">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="py-2 px-4">Categoría</th>
+            <th class="py-2 px-4">Nivel</th>
+            <th class="py-2 px-4">Cantidad</th>
+            <th class="py-2 px-4">Precio (USD)</th>
+            <th class="py-2 px-4">Plazo (Días)</th>
+            <th class="py-2 px-4">Entregables</th>
+          </tr>
+        </thead>
+        <tbody id="services-table"></tbody>
+        <tfoot>
+          <tr class="font-bold bg-gray-100">
+            <td colspan="3" class="py-2 px-4">Total</td>
+            <td id="total-price" class="py-2 px-4">$0</td>
+            <td id="total-days" class="py-2 px-4">0 días</td>
+            <td class="py-2 px-4"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- Botón de Exportar -->
+    <button id="export-pdf" class="mt-6 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Exportar a PDF</button>
+
+    <!-- Notas -->
+    <div class="mt-8 text-sm text-gray-600">
+      <p><strong>Notas:</strong></p>
+      <ul class="list-disc pl-5">
+        <li>Ajustes por complejidad: +20% por entregables adicionales, +50% por proyectos estratégicos.</li>
+        <li>Revisiones: Básico (1), Estándar (2), Premium (3). Adicional: USD 300, +5 días.</li>
+        <li>Términos de Pago: Básico (60%/40%), Estándar/Premium (50%/50%). Mensual: pago del 1-10.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Datos de paquetes (basado en el CSV actualizado)
+    const packages = [
+      { category: "Branding e Identidad", level: "Básico", price: 1500, days: 20, deliverables: "Brief inicial, Diseño de logotipo (2 propuestas, 1 revisión), Paleta de colores, Tipografía básica, Tarjeta de presentación digital" },
+      { category: "Branding e Identidad", level: "Estándar", price: 3000, days: 30, deliverables: "Brief inicial, Diseño de logotipo (3 propuestas, 2 revisiones), Identidad visual (colores, tipografías, gráficos), Tarjeta, Firma de email, Membrete, Manual de marca básico" },
+      { category: "Branding e Identidad", level: "Premium", price: 4500, days: 40, deliverables: "Brief inicial, Naming (3-5 propuestas), Estrategia conceptual, Diseño de logotipo (3 propuestas, 3 revisiones), Identidad visual completa, Tarjeta, Membrete, Sticker/Bolsa/Postal, Amenities (champú, jabón), Manual de marca completo" },
+      { category: "Diseño Digital (Web)", level: "Básico", price: 1000, days: 20, deliverables: "Diseño de landing page (1 propuesta, 1 revisión, AI/PSD/PDF), Propuesta visual básica, Botón WhatsApp" },
+      { category: "Diseño Digital (Web)", level: "Estándar", price: 2000, days: 25, deliverables: "Diseño de landing page (2 propuestas, 2 revisiones, AI/PSD/PDF), Propuesta de contenido, Banners adicionales, WordPress" },
+      { category: "Diseño Digital (Web)", level: "Premium", price: 3500, days: 30, deliverables: "Diseño de landing page + 2 páginas (2 propuestas, 3 revisiones), Estrategia UX básica, Guía de estilo digital, WordPress, Botón WhatsApp" },
+      { category: "Diseño de Packaging", level: "Básico", price: 2500, days: 40, deliverables: "Diseño de packaging para 1 línea (1-2 formatos, 2 propuestas, 1 revisión), Archivos para impresión" },
+      { category: "Diseño de Packaging", level: "Estándar", price: 4000, days: 50, deliverables: "Diseño de packaging para 2-3 líneas (2 formatos/línea, 3 propuestas, 2 revisiones), Manual de aplicación" },
+      { category: "Diseño de Packaging", level: "Premium", price: 6000, days: 60, deliverables: "Diseño de packaging para 4+ líneas (3 formatos/línea, 3 propuestas, 3 revisiones), Estrategia de marca, Propuesta de materiales" },
+      { category: "Diseño de Espacios Físicos", level: "Básico", price: 3000, days: 40, deliverables: "Diseño conceptual de 1 espacio (1 propuesta, 1 revisión), Sugerencias de materiales, Cartelería básica" },
+      { category: "Diseño de Espacios Físicos", level: "Estándar", price: 5000, days: 60, deliverables: "Diseño de 2-3 espacios (2 propuestas, 2 revisiones), Manual de implementación básico" },
+      { category: "Diseño de Espacios Físicos", level: "Premium", price: 8000, days: 90, deliverables: "Masterplan, Zonificación, Diseño de múltiples espacios (2 propuestas, 3 revisiones), Dirección creativa, Señalética, Branding aplicado" },
+      { category: "Multimedia e Impresión", level: "Básico", price: 1500, days: 20, deliverables: "Diseño de 1 pieza multimedia/folleto (1 propuesta, 1 revisión), Archivos para producción" },
+      { category: "Multimedia e Impresión", level: "Estándar", price: 2500, days: 30, deliverables: "Diseño de 2 piezas (2 propuestas, 2 revisiones), Guía de estilo" },
+      { category: "Multimedia e Impresión", level: "Premium", price: 4000, days: 40, deliverables: "Diseño de 3+ piezas (2 propuestas, 3 revisiones), Estrategia visual, Coordinación con proveedores, Brochure digital/imprimible" },
+      { category: "Estrategia de Redes Sociales", level: "Básico", price: 1500, days: 20, deliverables: "Auditoría de Instagram, Pilares de contenido, Tono de marca, 2 plantillas, Moodboard, Paleta de colores" },
+      { category: "Estrategia de Redes Sociales", level: "Estándar", price: 2500, days: 30, deliverables: "Auditoría, Pilares de contenido, Tono de marca, 4 plantillas, Dirección de 1 sesión foto/video, Manual de estilo" },
+      { category: "Estrategia de Redes Sociales", level: "Premium", price: 3500, days: 40, deliverables: "Auditoría, Estrategia para 2 plataformas, 6 plantillas, Dirección de foto/video, Grilla mensual" },
+      { category: "Estrategia de Redes Sociales", level: "Mensual", price: 500, days: 30, deliverables: "8 posteos/mes, 4 stories/semana, Interacción básica" },
+      { category: "Gráfica Vehicular", level: "Básico", price: 1500, days: 20, deliverables: "Diseño de gráfica para 1 vehículo (1 propuesta, 1 revisión), Archivos para producción" },
+      { category: "Gráfica Vehicular", level: "Estándar", price: 2500, days: 30, deliverables: "Diseño de gráfica para 2-3 vehículos (2 propuestas, 2 revisiones), Guía de aplicación" },
+      { category: "Gráfica Vehicular", level: "Premium", price: 3500, days: 40, deliverables: "Diseño de gráfica para 4+ vehículos (3 propuestas, 3 revisiones), Estrategia de marca vehicular, Gestión de proveedores" }
+    ];
+
+    let serviceCount = 1;
+
+    // Añadir nuevo servicio
+    document.getElementById('add-service').addEventListener('click', () => {
+      serviceCount++;
+      const serviceDiv = document.createElement('div');
+      serviceDiv.className = 'grid grid-cols-1 md:grid-cols-3 gap-4 mt-4';
+      serviceDiv.innerHTML = `
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Categoría</label>
+          <select id="category-${serviceCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <option value="">Selecciona una categoría</option>
+            ${packages.map(p => p.category).filter((v, i, a) => a.indexOf(v) === i).map(c => `<option value="${c}">${c}</option>`).join('')}
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Nivel</label>
+          <select id="level-${serviceCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <option value="">Selecciona un nivel</option>
+            <option value="Básico">Básico</option>
+            <option value="Estándar">Estándar</option>
+            <option value="Premium">Premium</option>
+            <option value="Mensual">Mensual (Redes Sociales)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Cantidad</label>
+          <input type="number" id="quantity-${serviceCount}" min="1" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        </div>
+      `;
+      document.querySelector('.space-y-4').insertBefore(serviceDiv, document.getElementById('add-service'));
+      updateTable();
+    });
+
+    // Actualizar tabla
+    function updateTable() {
+      const tableBody = document.getElementById('services-table');
+      tableBody.innerHTML = '';
+      let totalPrice = 0;
+      let maxDays = 0;
+
+      for (let i = 1; i <= serviceCount; i++) {
+        const category = document.getElementById(`category-${i}`)?.value || '';
+        const level = document.getElementById(`level-${i}`)?.value || '';
+        const quantity = parseInt(document.getElementById(`quantity-${i}`)?.value || 1);
+
+        if (category && level) {
+          const pkg = packages.find(p => p.category === category && p.level === level);
+          if (pkg) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td class="py-2 px-4">${category}</td>
+              <td class="py-2 px-4">${level}</td>
+              <td class="py-2 px-4">${quantity}</td>
+              <td class="py-2 px-4">$${pkg.price * quantity}</td>
+              <td class="py-2 px-4">${pkg.days} días</td>
+              <td class="py-2 px-4">${pkg.deliverables}</td>
+            `;
+            tableBody.appendChild(row);
+            totalPrice += pkg.price * quantity;
+            maxDays = Math.max(maxDays, pkg.days);
+          }
+        }
+      }
+
+      document.getElementById('total-price').textContent = `$${totalPrice}`;
+      document.getElementById('total-days').textContent = `${maxDays} días`;
+    }
+
+    // Exportar a PDF
+    document.getElementById('export-pdf').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(18);
+      doc.text('Presupuesto Ailoviu', 20, 20);
+      doc.setFontSize(12);
+      let y = 30;
+
+      for (let i = 1; i <= serviceCount; i++) {
+        const category = document.getElementById(`category-${i}`)?.value || '';
+        const level = document.getElementById(`level-${i}`)?.value || '';
+        const quantity = parseInt(document.getElementById(`quantity-${i}`)?.value || 1);
+
+        if (category && level) {
+          const pkg = packages.find(p => p.category === category && p.level === level);
+          if (pkg) {
+            doc.text(`Categoría: ${category}`, 20, y);
+            doc.text(`Nivel: ${level}`, 20, y + 5);
+            doc.text(`Cantidad: ${quantity}`, 20, y + 10);
+            doc.text(`Precio: $${pkg.price * quantity}`, 20, y + 15);
+            doc.text(`Plazo: ${pkg.days} días`, 20, y + 20);
+            doc.text(`Entregables: ${pkg.deliverables}`, 20, y + 25, { maxWidth: 160 });
+            y += 35;
+          }
+        }
+      }
+
+      doc.text(`Total: $${document.getElementById('total-price').textContent.slice(1)}`, 20, y);
+      doc.text(`Plazo Total: ${document.getElementById('total-days').textContent}`, 20, y + 5);
+      doc.text('Notas: Ajustes por complejidad (+20%/+50%). Revisiones: Básico (1), Estándar (2), Premium (3).', 20, y + 15, { maxWidth: 160 });
+      doc.save('Presupuesto_Ailoviu.pdf');
+    });
+
+    // Actualizar tabla en cambios
+    document.querySelector('.space-y-4').addEventListener('change', updateTable);
+    document.querySelector('.space-y-4').addEventListener('input', updateTable);
+  </script>
 </body>
 </html>
