@@ -7,47 +7,144 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .table-container { max-height: 400px; overflow-y: auto; }
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+    body { font-family: 'Roboto Condensed', sans-serif; }
+    .table-container { 
+      overflow-y: visible; /* Cambiado a visible para eliminar el scroll */
+    }
+    /* Estilo para las listas dentro de la tabla */
+    .table-deliverables ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    .table-deliverables li {
+      margin-bottom: 2px;
+    }
+    .hidden {
+      display: none;
+    }
+    .dragging {
+      opacity: 0.5;
+      border: 2px dashed #3B82F6; /* Tailwind blue-500 */
+    }
+    /* Estilo para el ícono de arrastre y eliminar */
+    .drag-icon, .delete-icon {
+      font-size: 1.5rem; /* Aumentado a 1.5rem (text-2xl) */
+      color: #4B5563; /* Tailwind gray-700 */
+      cursor: grab;
+      transition: color 0.2s ease-in-out;
+    }
+    .drag-icon:hover, .delete-icon:hover {
+      color: #1F2937; /* Tailwind gray-900 */
+    }
+    .delete-icon {
+      cursor: pointer;
+    }
+    /* Custom styles for table cells alignment */
+    .table-auto-width {
+      width: auto; /* Allow content to dictate width */
+      white-space: nowrap; /* Prevent wrapping */
+    }
+    .align-top-td {
+        vertical-align: top;
+    }
+    /* Smaller padding for icon columns */
+    .th-icon-col, .td-icon-col {
+      padding-left: 0.5rem; /* Reduced horizontal padding */
+      padding-right: 0.5rem; /* Reduced horizontal padding */
+    }
+    /* Smaller input fields for U. and Días Hábiles */
+    .input-fixed-width {
+      width: 50px !important; /* Ancho fijo de 50px, forzado para asegurar override */
+    }
   </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col items-center py-8">
+<body class="bg-gradient-to-br from-blue-200 via-blue-300 to-purple-200 min-h-screen flex flex-col items-center py-8">
   <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-6">
     <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Cotizador Ailoviu</h1>
     <p class="text-center text-gray-600 mb-8">Selecciona los servicios para generar tu presupuesto personalizado.</p>
 
-    <!-- Formulario -->
-    <div class="space-y-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- Campos de información del cliente -->
+    <div class="space-y-4 mb-4">
+      <div>
+        <label for="client-name-input" class="block text-sm font-medium text-gray-700">Nombre y Apellido del Cliente</label>
+        <input type="text" id="client-name-input" placeholder="Nombre del cliente" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10 p-2.5">
+      </div>
+      <div>
+        <label for="company-name-input" class="block text-sm font-medium text-gray-700">Nombre de la Empresa</label>
+        <input type="text" id="company-name-input" placeholder="Nombre de la empresa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10 p-2.5">
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700">Categoría</label>
-          <select id="category-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            <option value="">Selecciona una categoría</option>
-            <option value="Branding e Identidad">Branding e Identidad</option>
-            <option value="Diseño Digital (Web)">Diseño Digital (Web)</option>
-            <option value="Diseño de Packaging">Diseño de Packaging</option>
-            <option value="Diseño de Espacios Físicos">Diseño de Espacios Físicos</option>
-            <option value="Multimedia e Impresión">Multimedia e Impresión</option>
-            <option value="Estrategia de Redes Sociales">Estrategia de Redes Sociales</option>
-            <option value="Gráfica Vehicular">Gráfica Vehicular</option>
-          </select>
+          <label for="phone-input" class="block text-sm font-medium text-gray-700">Teléfono</label>
+          <input type="tel" id="phone-input" placeholder="Teléfono del cliente" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10 p-2.5">
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700">Nivel</label>
-          <select id="level-1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            <option value="">Selecciona un nivel</option>
-            <option value="Básico">Básico</option>
-            <option value="Estándar">Estándar</option>
-            <option value="Premium">Premium</option>
-            <option value="Mensual">Mensual (Redes Sociales)</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Cantidad</label>
-          <input type="number" id="quantity-1" min="1" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+          <label for="email-input" class="block text-sm font-medium text-gray-700">Email</label>
+          <input type="email" id="email-input" placeholder="Email del cliente" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10 p-2.5">
         </div>
       </div>
-      <button id="add-service" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Añadir Servicio</button>
+    </div>
+
+    <!-- Campo para el nombre del proyecto -->
+    <div class="space-y-4 mb-8">
+      <div>
+        <label for="project-name-input" class="block text-sm font-medium text-gray-700">Nombre del Proyecto</label>
+        <input type="text" id="project-name-input" placeholder="Nombre del proyecto" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10 p-2.5">
+      </div>
+    </div>
+
+    <!-- Campo para el número de presupuesto -->
+    <div class="space-y-4 mb-8">
+      <div>
+        <label for="quote-number-input" class="block text-sm font-medium text-gray-700">Presupuesto Nº:</label>
+        <input type="text" id="quote-number-input" placeholder="Número de presupuesto" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 h-10 p-2.5">
+      </div>
+    </div>
+
+    <!-- Formulario para añadir servicios -->
+    <div id="service-inputs" class="space-y-4">
+      <div id="add-service-row" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Categoría</label>
+          <select id="category-input" class="mt-1 block w-full h-10 p-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            <option value="">Selecciona una categoría</option>
+            <option value="Análisis">Análisis</option>
+            <option value="Estrategia">Estrategia</option>
+            <option value="Naming">Naming</option>
+            <option value="Branding/Identidad">Branding/Identidad</option>
+            <option value="Diseño Website">Diseño Website</option>
+            <option value="Diseño RRSS">Diseño RRSS</option>
+            <option value="Diseño Local Comercial">Diseño Local Comercial</option>
+            <option value="Diseño de Packaging">Diseño de Packaging</option>
+          </select>
+        </div>
+        <!-- Campo de precio manual para Packaging, inicialmente oculto -->
+        <div id="manual-price-input-div" class="md:col-span-3 hidden">
+          <label class="block text-sm font-medium text-gray-700 mt-2">Precio Manual por Packaging (USD)</label>
+          <input type="number" id="manual-price-input" min="0" placeholder="Introduce el precio por packaging" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+        </div>
+
+        <div class="flex space-x-4 md:col-span-2 items-end"> <!-- Flex container for U. and Días Hábiles -->
+            <div> <!-- Div for U. input -->
+              <label class="block text-sm font-medium text-gray-700">U.</label>
+              <input type="number" id="quantity-input" min="1" value="1" class="mt-1 block h-10 p-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 input-fixed-width">
+            </div>
+            <!-- Campo para Días Hábiles -->
+            <div> <!-- Div for Días Hábiles input -->
+              <label for="days-input" class="block text-sm font-medium text-gray-700">Días Hábiles</label>
+              <input type="number" id="days-input" min="0" value="0"
+                     class="mt-1 block h-10 p-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 input-fixed-width">
+            </div>
+        </div>
+      </div>
+      <!-- Contenedor para los entregables seleccionables (MOVIDO FUERA DEL GRID) -->
+      <div id="deliverables-selection" class="space-y-2 mt-4 p-4 border border-gray-300 rounded-md bg-gray-50 hidden">
+        <p class="font-medium text-gray-700">Selecciona los entregables:</p>
+        <!-- Los checkboxes de entregables se cargarán aquí dinámicamente -->
+      </div>
+
+      <button id="add-service-btn" class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">Añadir Servicio</button>
     </div>
 
     <!-- Tabla de Resultados -->
@@ -55,173 +152,649 @@
       <table class="w-full text-left border-collapse">
         <thead>
           <tr class="bg-gray-200">
-            <th class="py-2 px-4">Categoría</th>
-            <th class="py-2 px-4">Nivel</th>
-            <th class="py-2 px-4">Cantidad</th>
-            <th class="py-2 px-4">Precio (USD)</th>
-            <th class="py-2 px-4">Plazo (Días)</th>
+            <th class="py-2 px-4 w-1/4">Categoría</th> <!-- Widened Category column -->
             <th class="py-2 px-4">Entregables</th>
+            <th class="py-2 px-4 text-center">U.</th>
+            <th class="py-2 px-4">Precio</th>
+            <th class="py-2 px-4 text-center th-icon-col"><span class="drag-icon">&#x2195;</span></th> <!-- Order icon in header -->
+            <th class="py-2 px-4 text-center th-icon-col"><span class="delete-icon">&#x2715;</span></th> <!-- Delete icon in header -->
           </tr>
         </thead>
         <tbody id="services-table"></tbody>
         <tfoot>
           <tr class="font-bold bg-gray-100">
-            <td colspan="3" class="py-2 px-4">Total</td>
-            <td id="total-price" class="py-2 px-4">$0</td>
-            <td id="total-days" class="py-2 px-4">0 días</td>
-            <td class="py-2 px-4"></td>
+            <td colspan="3" class="py-2 px-4"></td> <!-- Empty cell spanning Category, Entregables, U. -->
+            <td colspan="3" class="py-2 px-4 text-right"> <!-- New cell for Total (USD) and price -->
+              Total (USD): <span id="total-price">$0</span>
+            </td>
           </tr>
         </tfoot>
       </table>
     </div>
 
+    <!-- Mostrar total de días hábiles -->
+    <p id="displayed-total-days" class="mt-4 text-lg font-bold text-gray-800 text-right">Total Días hábiles: 0 días</p>
+
+    <!-- Sección de "No incluye" -->
+    <div class="mt-8 p-4 border border-gray-300 rounded-md bg-gray-50">
+      <h3 class="text-lg font-bold text-gray-800 mb-2">No incluye:</h3>
+      <div class="space-y-2" id="not-included-items">
+        <div class="flex items-center">
+          <input type="checkbox" id="no-include-programacion" name="not-included" value="Programación, ni upload de archivos." class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+          <label for="no-include-programacion" class="ml-2 text-sm text-gray-700">Programación, ni upload de archivos.</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="no-include-ecommerce" name="not-included" value="E-commerce / Tienda online." class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+          <label for="no-include-ecommerce" class="ml-2 text-sm text-gray-700">E-commerce / Tienda online.</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="no-include-hosting" name="not-included" value="Compra de hosting y dominio." class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+          <label for="no-include-hosting" class="ml-2 text-sm text-gray-700">Compra de hosting y dominio.</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="no-include-fotografia" name="not-included" value="Fotografía ni videos." class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+          <label for="no-include-fotografia" class="ml-2 text-sm text-gray-700">Fotografía ni videos.</label>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" id="no-include-registro-marca" name="not-included" value="Registro de marca." class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+          <label for="no-include-registro-marca" class="ml-2 text-sm text-gray-700">Registro de marca.</label>
+        </div>
+      </div>
+    </div>
+
+
     <!-- Botón de Exportar -->
     <button id="export-pdf" class="mt-6 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">Exportar a PDF</button>
-
-    <!-- Notas -->
-    <div class="mt-8 text-sm text-gray-600">
-      <p><strong>Notas:</strong></p>
-      <ul class="list-disc pl-5">
-        <li>Ajustes por complejidad: +20% por entregables adicionales, +50% por proyectos estratégicos.</li>
-        <li>Revisiones: Básico (1), Estándar (2), Premium (3). Adicional: USD 300, +5 días.</li>
-        <li>Términos de Pago: Básico (60%/40%), Estándar/Premium (50%/50%). Mensual: pago del 1-10.</li>
-      </ul>
-    </div>
   </div>
 
   <script>
-    // Datos de paquetes (basado en el CSV actualizado)
+    // Datos de paquetes con entregables individuales (los días aquí son solo informativos para los checkboxes)
     const packages = [
-      { category: "Branding e Identidad", level: "Básico", price: 1500, days: 20, deliverables: "Brief inicial, Diseño de logotipo (2 propuestas, 1 revisión), Paleta de colores, Tipografía básica, Tarjeta de presentación digital" },
-      { category: "Branding e Identidad", level: "Estándar", price: 3000, days: 30, deliverables: "Brief inicial, Diseño de logotipo (3 propuestas, 2 revisiones), Identidad visual (colores, tipografías, gráficos), Tarjeta, Firma de email, Membrete, Manual de marca básico" },
-      { category: "Branding e Identidad", level: "Premium", price: 4500, days: 40, deliverables: "Brief inicial, Naming (3-5 propuestas), Estrategia conceptual, Diseño de logotipo (3 propuestas, 3 revisiones), Identidad visual completa, Tarjeta, Membrete, Sticker/Bolsa/Postal, Amenities (champú, jabón), Manual de marca completo" },
-      { category: "Diseño Digital (Web)", level: "Básico", price: 1000, days: 20, deliverables: "Diseño de landing page (1 propuesta, 1 revisión, AI/PSD/PDF), Propuesta visual básica, Botón WhatsApp" },
-      { category: "Diseño Digital (Web)", level: "Estándar", price: 2000, days: 25, deliverables: "Diseño de landing page (2 propuestas, 2 revisiones, AI/PSD/PDF), Propuesta de contenido, Banners adicionales, WordPress" },
-      { category: "Diseño Digital (Web)", level: "Premium", price: 3500, days: 30, deliverables: "Diseño de landing page + 2 páginas (2 propuestas, 3 revisiones), Estrategia UX básica, Guía de estilo digital, WordPress, Botón WhatsApp" },
-      { category: "Diseño de Packaging", level: "Básico", price: 2500, days: 40, deliverables: "Diseño de packaging para 1 línea (1-2 formatos, 2 propuestas, 1 revisión), Archivos para impresión" },
-      { category: "Diseño de Packaging", level: "Estándar", price: 4000, days: 50, deliverables: "Diseño de packaging para 2-3 líneas (2 formatos/línea, 3 propuestas, 2 revisiones), Manual de aplicación" },
-      { category: "Diseño de Packaging", level: "Premium", price: 6000, days: 60, deliverables: "Diseño de packaging para 4+ líneas (3 formatos/línea, 3 propuestas, 3 revisiones), Estrategia de marca, Propuesta de materiales" },
-      { category: "Diseño de Espacios Físicos", level: "Básico", price: 3000, days: 40, deliverables: "Diseño conceptual de 1 espacio (1 propuesta, 1 revisión), Sugerencias de materiales, Cartelería básica" },
-      { category: "Diseño de Espacios Físicos", level: "Estándar", price: 5000, days: 60, deliverables: "Diseño de 2-3 espacios (2 propuestas, 2 revisiones), Manual de implementación básico" },
-      { category: "Diseño de Espacios Físicos", level: "Premium", price: 8000, days: 90, deliverables: "Masterplan, Zonificación, Diseño de múltiples espacios (2 propuestas, 3 revisiones), Dirección creativa, Señalética, Branding aplicado" },
-      { category: "Multimedia e Impresión", level: "Básico", price: 1500, days: 20, deliverables: "Diseño de 1 pieza multimedia/folleto (1 propuesta, 1 revisión), Archivos para producción" },
-      { category: "Multimedia e Impresión", level: "Estándar", price: 2500, days: 30, deliverables: "Diseño de 2 piezas (2 propuestas, 2 revisiones), Guía de estilo" },
-      { category: "Multimedia e Impresión", level: "Premium", price: 4000, days: 40, deliverables: "Diseño de 3+ piezas (2 propuestas, 3 revisiones), Estrategia visual, Coordinación con proveedores, Brochure digital/imprimible" },
-      { category: "Estrategia de Redes Sociales", level: "Básico", price: 1500, days: 20, deliverables: "Auditoría de Instagram, Pilares de contenido, Tono de marca, 2 plantillas, Moodboard, Paleta de colores" },
-      { category: "Estrategia de Redes Sociales", level: "Estándar", price: 2500, days: 30, deliverables: "Auditoría, Pilares de contenido, Tono de marca, 4 plantillas, Dirección de 1 sesión foto/video, Manual de estilo" },
-      { category: "Estrategia de Redes Sociales", level: "Premium", price: 3500, days: 40, deliverables: "Auditoría, Estrategia para 2 plataformas, 6 plantillas, Dirección de foto/video, Grilla mensual" },
-      { category: "Estrategia de Redes Sociales", level: "Mensual", price: 500, days: 30, deliverables: "8 posteos/mes, 4 stories/semana, Interacción básica" },
-      { category: "Gráfica Vehicular", level: "Básico", price: 1500, days: 20, deliverables: "Diseño de gráfica para 1 vehículo (1 propuesta, 1 revisión), Archivos para producción" },
-      { category: "Gráfica Vehicular", level: "Estándar", price: 2500, days: 30, deliverables: "Diseño de gráfica para 2-3 vehículos (2 propuestas, 2 revisiones), Guía de aplicación" },
-      { category: "Gráfica Vehicular", level: "Premium", price: 3500, days: 40, deliverables: "Diseño de gráfica para 4+ vehículos (3 propuestas, 3 revisiones), Estrategia de marca vehicular, Gestión de proveedores" }
+      {
+        category: "Análisis",
+        items: [
+          { name: "Brief", price: 100, days: 2 },
+          { name: "Análisis de la información", price: 300, days: 5 },
+          { name: "Diagnóstico", price: 200, days: 3 },
+          { name: "Presentación + Reunión", price: 150, days: 1 }
+        ]
+      },
+      {
+        category: "Estrategia",
+        items: [
+          { name: "Brief", price: 100, days: 2 },
+          { name: "Análisis estratégico", price: 400, days: 7 },
+          { name: "Diagnóstico", price: 200, days: 3 },
+          { name: "Presentación + Reunión", price: 150, days: 1 }
+        ]
+      },
+      {
+        category: "Naming",
+        items: [
+          { name: "Generación de nombres", price: 500, days: 10 },
+          { name: "Chequeo en INPI", price: 200, days: 3 },
+          { name: "Chequeo en registro de dominio", price: 100, days: 1 },
+          { name: "Chequeo en RRSS", price: 100, days: 1 },
+          { name: "Presentación + Reunión", price: 150, days: 2 },
+          { name: "Ajustes", price: 100, days: 2 },
+          { name: "Rondas de nombres", price: 150, days: 3 }
+        ]
+      },
+      {
+        category: "Branding/Identidad", // Updated name
+        items: [
+          { name: "Logotipo. Propuestas", price: 800, days: 10 },
+          { name: "Paleta de colores", price: 200, days: 3 },
+          { name: "Tipografías", price: 150, days: 2 },
+          { name: "Manual de uso básico", price: 300, days: 5 },
+          { name: "Papelería básica", price: 250, days: 3 },
+          { name: "Firma mail", price: 80, days: 1 },
+          { name: "Entrega de material", price: 50, days: 1 },
+          { name: "Presentación + Reunión", price: 150, days: 2 }
+        ]
+      },
+      {
+        category: "Diseño Website", // Updated name
+        items: [
+          { name: "Análisis y estrategia", price: 400, days: 7 },
+          { name: "Diseño de interfaz", price: 1200, days: 15 },
+          { name: "Diseño de landing page (PSD)", price: 800, days: 10 },
+          { name: "Programación simple Wordpress", price: 1000, days: 15 },
+          { name: "Botón de whatsapp", price: 50, days: 1 },
+          { name: "Entrega de material", price: 50, days: 1 },
+          { name: "Upload", price: 100, days: 2 },
+          { name: "Reunión", price: 150, days: 1 }
+        ]
+      },
+      {
+        category: "Diseño RRSS",
+        items: [
+          { name: "Análisis y estrategia de redes", price: 300, days: 5 },
+          { name: "Adaptación de marca responsive", price: 200, days: 3 },
+          { name: "Moodboard feed", price: 150, days: 2 },
+          { name: "Creación de gráficas", price: 400, days: 8 },
+          { name: "Entrega de material", price: 50, days: 1 },
+          { name: "Presentación + Reunión", price: 150, days: 2 }
+        ]
+      },
+      {
+        category: "Diseño Local Comercial", // Updated name
+        items: [
+          { name: "Análisis y estrategia", price: 1000, days: 15 },
+          { name: "Ideas. Propuestas", price: 800, days: 10 },
+          { name: "Dirección de arte", price: 1500, days: 20 },
+          { name: "Moodboard", price: 200, days: 3 },
+          { name: "Masterplan", price: 500, days: 7 },
+          { name: "Diseño e ilustraciones", price: 1200, days: 15 },
+          { name: "Maqueta 3D", price: 2000, days: 25 },
+          { name: "Ajustes", price: 300, days: 5 },
+          { name: "Planos", price: 800, days: 10 },
+          { name: "Presentación + Reunión", price: 150, days: 2 },
+          { name: "Diseño de Cartelería", price: 400, days: 5 },
+          { name: "Diseño de Uniformes", price: 300, days: 4 },
+          { name: "Dirección de arte mesa", price: 250, days: 3 },
+          { name: "Detalles", price: 100, days: 2 },
+          { name: "Gestión de proveedores", price: 500, days: 7 },
+          { name: "Reuniones", price: 100, days: 1 }
+        ]
+      },
+      {
+        category: "Diseño de Packaging",
+        items: [
+          { name: "Análisis", price: 100, days: 2 },
+          { name: "Estrategia", price: 200, days: 3 },
+          { name: "Ideas", price: 150, days: 3 },
+          { name: "Diseño de etiqueta", price: 300, days: 5 },
+          { name: "Diseño de caja contenedora", price: 400, days: 7 },
+          { name: "Diseño de bolsa", price: 250, days: 4 },
+          { name: "Diseño de papel sulfito", price: 100, days: 2 },
+          { name: "Diseño de caja delivery", price: 350, days: 6 },
+          { name: "Montajes", price: 200, days: 3 },
+          { name: "Gestión de proveedores", price: 150, days: 3 },
+          { name: "Gestión de imprenta", price: 150, days: 3 },
+          { name: "Preparación de archivos", price: 100, days: 2 }
+        ]
+      }
     ];
 
-    let serviceCount = 1;
+    // Array global para almacenar los servicios añadidos
+    let services = [];
 
-    // Añadir nuevo servicio
-    document.getElementById('add-service').addEventListener('click', () => {
-      serviceCount++;
-      const serviceDiv = document.createElement('div');
-      serviceDiv.className = 'grid grid-cols-1 md:grid-cols-3 gap-4 mt-4';
-      serviceDiv.innerHTML = `
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Categoría</label>
-          <select id="category-${serviceCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            <option value="">Selecciona una categoría</option>
-            ${packages.map(p => p.category).filter((v, i, a) => a.indexOf(v) === i).map(c => `<option value="${c}">${c}</option>`).join('')}
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Nivel</label>
-          <select id="level-${serviceCount}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            <option value="">Selecciona un nivel</option>
-            <option value="Básico">Básico</option>
-            <option value="Estándar">Estándar</option>
-            <option value="Premium">Premium</option>
-            <option value="Mensual">Mensual (Redes Sociales)</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700">Cantidad</label>
-          <input type="number" id="quantity-${serviceCount}" min="1" value="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-        </div>
-      `;
-      document.querySelector('.space-y-4').insertBefore(serviceDiv, document.getElementById('add-service'));
-      updateTable();
-    });
-
-    // Actualizar tabla
-    function updateTable() {
-      const tableBody = document.getElementById('services-table');
-      tableBody.innerHTML = '';
-      let totalPrice = 0;
-      let maxDays = 0;
-
-      for (let i = 1; i <= serviceCount; i++) {
-        const category = document.getElementById(`category-${i}`)?.value || '';
-        const level = document.getElementById(`level-${i}`)?.value || '';
-        const quantity = parseInt(document.getElementById(`quantity-${i}`)?.value || 1);
-
-        if (category && level) {
-          const pkg = packages.find(p => p.category === category && p.level === level);
-          if (pkg) {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-              <td class="py-2 px-4">${category}</td>
-              <td class="py-2 px-4">${level}</td>
-              <td class="py-2 px-4">${quantity}</td>
-              <td class="py-2 px-4">$${pkg.price * quantity}</td>
-              <td class="py-2 px-4">${pkg.days} días</td>
-              <td class="py-2 px-4">${pkg.deliverables}</td>
-            `;
-            tableBody.appendChild(row);
-            totalPrice += pkg.price * quantity;
-            maxDays = Math.max(maxDays, pkg.days);
-          }
-        }
-      }
-
-      document.getElementById('total-price').textContent = `$${totalPrice}`;
-      document.getElementById('total-days').textContent = `${maxDays} días`;
+    // Función para generar un ID único para cada servicio
+    function generateUniqueId() {
+      return Date.now() + Math.random().toString(36).substring(2, 9);
     }
 
-    // Exportar a PDF
+    // Función para renderizar la tabla de servicios desde el array 'services'
+    function renderServicesTable() {
+      const tableBody = document.getElementById('services-table');
+      tableBody.innerHTML = ''; // Limpiar filas existentes
+      let totalPrice = 0;
+      let totalDays = 0; // Variable para sumar los días
+
+      services.forEach(service => {
+        // Calcular el precio para el servicio actual
+        let currentServicePrice = 0;
+        const selectedDeliverableNames = [];
+
+        service.selectedDeliverables.forEach(deliverableName => {
+          const categoryData = packages.find(p => p.category === service.category);
+          if (categoryData) {
+            const item = categoryData.items.find(i => i.name === deliverableName);
+            if (item) {
+              currentServicePrice += item.price;
+              // Los días de los entregables individuales son solo informativos en este punto.
+              selectedDeliverableNames.push(item.name);
+            }
+          }
+        });
+
+        // Si es Diseño de Packaging y hay un precio manual, usarlo
+        if (service.category === "Diseño de Packaging" && service.manualPrice > 0) {
+          currentServicePrice = service.manualPrice;
+        }
+
+        const rowPrice = currentServicePrice * service.quantity;
+        totalPrice += rowPrice;
+        totalDays += service.days; // Sumar los días MANUALES de cada servicio
+
+
+        const deliverablesListHtml = selectedDeliverableNames.length > 0 ?
+          `<ul>${selectedDeliverableNames.map(item => `<li>${item}</li>`).join('')}</ul>` :
+          'N/A'; // Si no hay entregables seleccionados
+
+        const row = document.createElement('tr');
+        row.draggable = true; // Hacer la fila arrastrable
+        row.dataset.id = service.id; // Almacenar ID único para drag-and-drop
+
+        row.innerHTML = `
+          <td class="py-2 px-4 align-top-td">${service.category}</td>
+          <td class="py-2 px-4 table-deliverables align-top-td">${deliverablesListHtml}</td>
+          <td class="py-2 px-4 text-center align-top-td">${service.quantity}</td>
+          <td class="py-2 px-4 align-top-td">$${rowPrice.toFixed(2)}</td>
+          <td class="py-2 px-4 text-center align-top-td td-icon-col"><span class="drag-icon">&#x2261;</span></td> <!-- Icono de arrastre -->
+          <td class="py-2 px-4 text-center align-top-td td-icon-col"><span class="delete-icon" data-id="${service.id}">&#x2715;</span></td> <!-- Icono de eliminar -->
+        `;
+        tableBody.appendChild(row);
+      });
+
+      document.getElementById('total-price').textContent = `$${totalPrice.toFixed(2)}`;
+      // Actualizar el display de días hábiles sumando los días de los servicios
+      document.getElementById('displayed-total-days').textContent = `Total Días hábiles: ${totalDays} días`;
+
+
+      // Añadir event listeners de drag and drop a las filas recién renderizadas
+      addDragAndDropListeners();
+      // Añadir event listeners para los íconos de eliminar
+      document.querySelectorAll('.delete-icon').forEach(icon => {
+        icon.addEventListener('click', (event) => {
+          const serviceIdToRemove = event.target.dataset.id;
+          services = services.filter(service => service.id !== serviceIdToRemove);
+          renderServicesTable();
+        });
+      });
+    }
+
+    // Función para añadir event listeners de drag and drop a todas las filas de la tabla
+    function addDragAndDropListeners() {
+      const rows = document.querySelectorAll('#services-table tr');
+      let draggedItem = null;
+
+      rows.forEach(row => {
+        row.addEventListener('dragstart', (e) => {
+          draggedItem = row;
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', row.dataset.id);
+          setTimeout(() => row.classList.add('dragging'), 0); // Añadir clase después de un pequeño retraso
+        });
+
+        row.addEventListener('dragover', (e) => {
+          e.preventDefault(); // Permitir el drop
+          if (e.target.closest('tr') && e.target.closest('tr') !== draggedItem) {
+            const targetRow = e.target.closest('tr');
+            const bounding = targetRow.getBoundingClientRect();
+            const offset = bounding.y + (bounding.height / 2);
+            // Añadir feedback visual para indicar dónde se soltará la fila
+            if (e.clientY < offset) {
+              targetRow.classList.add('border-t-2', 'border-blue-500');
+              targetRow.classList.remove('border-b-2', 'border-blue-500');
+            } else {
+              targetRow.classList.add('border-b-2', 'border-blue-500');
+              targetRow.classList.remove('border-t-2', 'border-blue-500');
+            }
+          }
+        });
+
+        row.addEventListener('dragleave', (e) => {
+          // Remover feedback visual al salir del área de arrastre
+          e.target.closest('tr')?.classList.remove('border-t-2', 'border-b-2', 'border-blue-500');
+        });
+
+        row.addEventListener('drop', (e) => {
+          e.preventDefault();
+          const targetRow = e.target.closest('tr');
+          if (draggedItem && targetRow && draggedItem !== targetRow) {
+            const draggedId = draggedItem.dataset.id;
+            const targetId = targetRow.dataset.id;
+
+            const draggedIndex = services.findIndex(s => s.id === draggedId);
+            const targetIndex = services.findIndex(s => s.id === targetId);
+
+            if (draggedIndex > -1 && targetIndex > -1) {
+              const [removed] = services.splice(draggedIndex, 1); // Remover el elemento arrastrado
+              services.splice(targetIndex, 0, removed); // Insertarlo en la nueva posición
+              renderServicesTable(); // Volver a renderizar la tabla con el nuevo orden
+            }
+          }
+          // Remover feedback visual después de soltar
+          document.querySelectorAll('#services-table tr').forEach(r => r.classList.remove('border-t-2', 'border-b-2', 'border-blue-500'));
+        });
+
+        row.addEventListener('dragend', () => {
+          // Limpiar clases al finalizar el arrastre
+          draggedItem?.classList.remove('dragging');
+          document.querySelectorAll('#services-table tr').forEach(r => r.classList.remove('border-t-2', 'border-b-2', 'border-blue-500'));
+          draggedItem = null;
+        });
+      });
+    }
+
+    // Función para mostrar/ocultar el campo de precio manual y cargar entregables
+    function updateDeliverablesSelection() {
+      const categorySelect = document.getElementById('category-input');
+      const manualPriceDiv = document.getElementById('manual-price-input-div');
+      const deliverablesSelectionDiv = document.getElementById('deliverables-selection');
+      const selectedCategory = categorySelect.value;
+
+      // Ocultar/mostrar campo de precio manual
+      if (selectedCategory === "Diseño de Packaging") {
+        manualPriceDiv.classList.remove('hidden');
+      } else {
+        manualPriceDiv.classList.add('hidden');
+        document.getElementById('manual-price-input').value = ''; // Limpiar valor cuando se oculta
+      }
+
+      // Cargar checkboxes de entregables
+      const categoryData = packages.find(p => p.category === selectedCategory);
+      deliverablesSelectionDiv.innerHTML = '<p class="font-medium text-gray-700">Selecciona los entregables:</p>'; // Reset
+      if (categoryData && categoryData.items.length > 0) {
+        categoryData.items.forEach((item, index) => {
+          const checkboxDiv = document.createElement('div');
+          checkboxDiv.className = 'flex items-center';
+          checkboxDiv.innerHTML = `
+            <input type="checkbox" id="deliverable-${selectedCategory}-${index}" name="deliverable" value="${item.name}"
+                   class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <label for="deliverable-${selectedCategory}-${index}" class="ml-2 text-sm text-gray-700">${item.name}</label>
+          `; // Eliminada la información de precio y días
+          deliverablesSelectionDiv.appendChild(checkboxDiv);
+        });
+        deliverablesSelectionDiv.classList.remove('hidden');
+      } else {
+        deliverablesSelectionDiv.classList.add('hidden');
+      }
+    }
+
+
+    // Event listener para añadir un nuevo servicio
+    document.getElementById('add-service-btn').addEventListener('click', () => {
+      const categorySelect = document.getElementById('category-input');
+      const quantityInput = document.getElementById('quantity-input');
+      const manualPriceInput = document.getElementById('manual-price-input');
+      const daysInput = document.getElementById('days-input'); // Nuevo input de días
+      const selectedDeliverablesCheckboxes = document.querySelectorAll('#deliverables-selection input[type="checkbox"]:checked');
+
+      const category = categorySelect.value;
+      const quantity = parseInt(quantityInput.value || 1);
+      const manualPrice = parseFloat(manualPriceInput.value) || 0;
+      const days = parseInt(daysInput.value || 0); // Obtener días del input manual
+      const selectedDeliverables = Array.from(selectedDeliverablesCheckboxes).map(cb => cb.value);
+
+      if (category && selectedDeliverables.length > 0 && days >= 0) { // Requiere categoría, al menos un entregable y días válidos
+        const newService = {
+          id: generateUniqueId(),
+          category,
+          quantity,
+          manualPrice,
+          days, // Guardar los días manuales
+          selectedDeliverables // Guardar los nombres de los entregables seleccionados
+        };
+        services.push(newService);
+        renderServicesTable(); // Renderizar la tabla con el nuevo servicio
+
+        // Limpiar campos de entrada después de añadir
+        categorySelect.value = '';
+        quantityInput.value = '1';
+        manualPriceInput.value = '';
+        daysInput.value = '0'; // Limpiar el input de días
+        document.getElementById('manual-price-input-div').classList.add('hidden'); // Ocultar campo de precio manual
+        document.getElementById('deliverables-selection').classList.add('hidden'); // Ocultar selección de entregables
+        // Desmarcar todos los checkboxes de entregables
+        selectedDeliverablesCheckboxes.forEach(cb => cb.checked = false);
+      } else {
+        let errorMessage = "Por favor, completa los campos requeridos:";
+        if (!category) errorMessage += "\n- Categoría";
+        if (selectedDeliverables.length === 0) errorMessage += "\n- Al menos un entregable";
+        if (days < 0 || isNaN(days)) errorMessage += "\n- Días hábiles válidos (mayor o igual a 0)";
+        alert(errorMessage); // Usando alert temporalmente para depuración, cambiar a un modal si es necesario
+      }
+    });
+
+    // Actualizar exportación a PDF para usar el array 'services'
     document.getElementById('export-pdf').addEventListener('click', () => {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
-      doc.setFontSize(18);
-      doc.text('Presupuesto Ailoviu', 20, 20);
-      doc.setFontSize(12);
-      let y = 30;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(22);
+      
+      // Main title aligned left
+      doc.text('Presupuesto Ailoviu', 15, 20); 
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(11); // Default font size for content
+      
+      // Date on top right
+      const dateString = `Fecha: ${new Date().toLocaleDateString('es-AR')}`;
+      const dateStringWidth = doc.getTextWidth(dateString); // Calculate width separately
+      const dateX = 210 - 15 - dateStringWidth; // Pre-calculate X for date
+      doc.text(dateString, dateX, 20); // Align right with 15pt margin
 
-      for (let i = 1; i <= serviceCount; i++) {
-        const category = document.getElementById(`category-${i}`)?.value || '';
-        const level = document.getElementById(`level-${i}`)?.value || '';
-        const quantity = parseInt(document.getElementById(`quantity-${i}`)?.value || 1);
-
-        if (category && level) {
-          const pkg = packages.find(p => p.category === category && p.level === level);
-          if (pkg) {
-            doc.text(`Categoría: ${category}`, 20, y);
-            doc.text(`Nivel: ${level}`, 20, y + 5);
-            doc.text(`Cantidad: ${quantity}`, 20, y + 10);
-            doc.text(`Precio: $${pkg.price * quantity}`, 20, y + 15);
-            doc.text(`Plazo: ${pkg.days} días`, 20, y + 20);
-            doc.text(`Entregables: ${pkg.deliverables}`, 20, y + 25, { maxWidth: 160 });
-            y += 35;
-          }
-        }
+      // Get quote number from input field and align to right
+      const quoteNumber = document.getElementById('quote-number-input').value;
+      if (quoteNumber) {
+        doc.setFont('helvetica', 'bold'); // Make it bold
+        const quoteText = `Presupuesto Nº: ${quoteNumber}`;
+        const quoteTextWidth = doc.getTextWidth(quoteText); // Calculate width separately
+        const quoteX = 210 - 15 - quoteTextWidth; // Pre-calculate X for quote number
+        doc.text(quoteText, quoteX, 26); // Place below the date, aligned right
+        doc.setFont('helvetica', 'normal'); // Reset font
       }
 
-      doc.text(`Total: $${document.getElementById('total-price').textContent.slice(1)}`, 20, y);
-      doc.text(`Plazo Total: ${document.getElementById('total-days').textContent}`, 20, y + 5);
-      doc.text('Notas: Ajustes por complejidad (+20%/+50%). Revisiones: Básico (1), Estándar (2), Premium (3).', 20, y + 15, { maxWidth: 160 });
+      let y = 40; // Start content lower down
+
+      // Add client information to PDF
+      const clientName = document.getElementById('client-name-input').value;
+      const companyName = document.getElementById('company-name-input').value;
+      const phone = document.getElementById('phone-input').value;
+      const email = document.getElementById('email-input').value;
+      const projectName = document.getElementById('project-name-input').value; // Get project name
+
+      const clientInfo = [];
+      if (clientName) clientInfo.push(`Cliente: ${clientName}`);
+      if (companyName) clientInfo.push(`Empresa: ${companyName}`);
+      if (phone) clientInfo.push(`Teléfono: ${phone}`);
+      if (email) clientInfo.push(`Email: ${email}`);
+
+      if (clientInfo.length > 0) {
+          doc.setFont('helvetica', 'bold');
+          doc.text('Información del Cliente:', 15, y);
+          y += 5;
+          doc.setFont('helvetica', 'normal');
+          clientInfo.forEach(info => {
+              doc.text(info, 15, y);
+              y += 5;
+          });
+          y += 5; // Extra space after client info
+      }
+
+      // Add project name to PDF
+      if (projectName) {
+          doc.setFont('helvetica', 'bold');
+          doc.text('Proyecto:', 15, y);
+          y += 5;
+          doc.setFont('helvetica', 'normal');
+          doc.text(projectName, 15, y);
+          y += 10; // Extra space after project name
+      }
+
+
+      doc.setFont('helvetica', 'bold');
+      doc.text('Detalle de Servicios:', 15, y);
+      y += 7;
+
+      // Table headers for services
+      doc.setFontSize(11); // Set to 11pt
+      doc.setFillColor(230, 230, 230); // Light gray background
+      doc.rect(15, y, 180, 7, 'F'); // Draw a filled rectangle for the header row
+      doc.setTextColor(0, 0, 0); // Black text
+      doc.text('Categoría', 17, y + 5);
+      doc.text('Entregables', 65, y + 5);
+      doc.text('U.', 140, y + 5);
+      doc.text('Precio', 165, y + 5);
+      y += 7;
+
+      doc.setFont('helvetica', 'normal');
+      let totalDaysPdf = 0;
+
+      services.forEach(service => {
+        let currentServicePrice = 0;
+        const selectedDeliverableNames = [];
+
+        service.selectedDeliverables.forEach(deliverableName => {
+          const categoryData = packages.find(p => p.category === service.category);
+          if (categoryData) {
+            const item = categoryData.items.find(i => i.name === deliverableName);
+            if (item) {
+              currentServicePrice += item.price;
+              selectedDeliverableNames.push(item.name);
+            }
+          }
+        });
+
+        if (service.category === "Diseño de Packaging" && service.manualPrice > 0) {
+          currentServicePrice = service.manualPrice;
+        }
+
+        const rowPrice = currentServicePrice * service.quantity;
+        totalDaysPdf += service.days;
+
+        // Add row for Category, Quantity, Price
+        doc.text(service.category, 17, y + 5);
+        doc.text(service.quantity.toString(), 140, y + 5);
+        doc.text(`$${rowPrice.toFixed(2)}`, 165, y + 5);
+        y += 7;
+
+        // Add deliverables as bullet points
+        doc.setFontSize(11); // Set to 11pt
+        selectedDeliverableNames.forEach((item, index) => {
+            doc.text(`- ${item}`, 67, y + (index * 5));
+        });
+        y += (selectedDeliverableNames.length * 5) + 3; // Adjust y based on number of deliverables
+        if (y > 280) { // Check for page overflow
+          doc.addPage();
+          y = 15; // Reset y for new page
+          doc.setFont('helvetica', 'bold');
+          doc.setFontSize(11); // Set to 11pt
+          doc.setFillColor(230, 230, 230);
+          doc.rect(15, y, 180, 7, 'F');
+          doc.setTextColor(0, 0, 0);
+          doc.text('Categoría', 17, y + 5);
+          doc.text('Entregables', 65, y + 5);
+          doc.text('U.', 140, y + 5);
+          doc.text('Precio', 165, y + 5);
+          y += 7;
+          doc.setFont('helvetica', 'normal');
+        }
+      });
+
+      y += 5; // Space before totals
+      doc.setFont('helvetica', 'bold');
+      doc.text(`Total (USD): ${document.getElementById('total-price').textContent}`, 150, y);
+      y += 7;
+      doc.text(`Plazo Total (Días hábiles): ${totalDaysPdf} días`, 120, y);
+
+      // --- Sección de "No incluye" en el PDF ---
+      const notIncludedCheckboxes = document.querySelectorAll('#not-included-items input[type="checkbox"]:checked');
+      const selectedNotIncluded = Array.from(notIncludedCheckboxes).map(cb => cb.value);
+
+      if (selectedNotIncluded.length > 0) {
+        y += 10; // Space before new section
+        doc.setFontSize(11); // Set to 11pt
+        doc.setFont('helvetica', 'bold');
+        doc.text('No Incluye:', 15, y);
+        y += 7;
+        doc.setFontSize(11); // Set to 11pt
+        doc.setFont('helvetica', 'normal');
+
+        selectedNotIncluded.forEach(item => {
+            const splitText = doc.splitTextToSize(item, 180); // Ensure text wraps correctly
+            doc.text(splitText, 15, y, { align: 'left' }); // Explicitly left align
+            y += doc.getTextDimensions(splitText).h + 2;
+            if (y > 280) { // Check for page overflow
+              doc.addPage();
+              y = 15; // Reset y for new page
+            }
+        });
+      }
+
+      // --- FORMA DE PAGO ---
+      y += 15; // Space before new section
+      doc.setFontSize(11); // Set to 11pt
+      doc.setFont('helvetica', 'bold');
+      doc.text('FORMA DE PAGO:', 15, y);
+      y += 7;
+      doc.setFontSize(11); // Set to 11pt
+      doc.setFont('helvetica', 'normal');
+      const paymentText = `Dividimos el valor total en dos pagos, 50% para comenzar a trabajar y el 50% restante a los (${totalDaysPdf}) días corridos de realizado el primer pago.`;
+      const splitPaymentText = doc.splitTextToSize(paymentText, 180);
+      doc.text(splitPaymentText, 15, y, { align: 'left' }); // Explicitly left align
+      y += doc.getTextDimensions(splitPaymentText).h + 2;
+
+      if (y > 280) { // Check for page overflow after payment info
+        doc.addPage();
+        y = 15; // Reset y for new page
+      }
+
+      // --- Add Thank You message (right aligned, bold) ---
+      y += 15; // Space before new section
+      doc.setFontSize(11);
+      doc.setFont('helvetica', 'bold');
+      
+      const thanksLines = ['¡Gracias!', 'Ailoviu Design', 'Mendoza - Argentina'];
+      thanksLines.forEach(line => {
+        const lineWidth = doc.getTextWidth(line);
+        doc.text(line, 210 - 15 - lineWidth, y); // Align right with 15pt margin
+        y += 5;
+      });
+      y += 5; // Extra space after thanks message
+
+      // --- CONSIDERACIONES GENERALES Y DERECHOS DE USO ---
+      doc.setFont('helvetica', 'bold'); // Ensure bold for title
+      doc.setFontSize(11); // Ensure title font size
+      doc.text('CONSIDERACIONES GENERALES Y DERECHOS DE USO:', 15, y);
+      y += 10; // Space after title
+      doc.setFontSize(8); // Set to 8pt for general considerations content
+      doc.setFont('helvetica', 'normal'); // Reset font to normal for content
+
+      const generalConsiderations = [
+        "No incluye costos de producción o producción gráfica.",
+        "El copyright y derecho intelectual son de Ailoviu.",
+        "Todos los derechos de diseño gráfico le serán concedidos al cliente por tiempo ilimitado y cobertura internacional. Si existieran royalties de fotografía y/o ilustración, se negociarán los derechos y condiciones con cada proveedor en el momento de aprobar su presupuesto de producción.",
+        "Todos los conceptos, diseños, propuestas presentados y no aprobados, son de Ailoviu. En el caso de que con posterioridad se decida utilizar alguna de las opciones realizadas, no siendo ésta la elegida, se realizará un nuevo presupuesto por la creación (de acuerdo a la protección de propiedad intelectual).",
+        "El presupuesto incluye hasta tres rondas de propuestas. Si en la tercera ronda no se define, se volverá a presupuestar y se comenzará de cero. Cada ronda adicional será presupuestada por separado y estará sujeta a un nuevo acuerdo entre las partes.",
+        "En caso de interrupción del proyecto, luego de su aprobación, una vez superada y aprobada la etapa de boceto/propuesta, se deberá saldar el 100% del importe presupuestado. Los tiempos previstos pueden variar de acuerdo al tiempo de respuesta del cliente y a decisiones que pueden surgir durante el desarrollo del proyecto.",
+        "En el caso de que se decida pausar la realización del proyecto, una vez se retome, se aplicará al saldo la actualización del presupuesto según calculadora de inflación.",
+        "Luego de pasados los 6 (seis) meses de enviado este presupuesto, si el mismo no se ha concluido por temas de terceros o por decisiones externas a Ailoviu, y continúa en proceso, se deberá abonar la totalidad del presupuesto en tiempo y forma y se hará el ajuste necesario para continuar con el proyecto..",
+        "Si en el proceso de trabajo, el proyecto toma otra forma, o se agregan tareas y pedidos por parte del cliente, los cuales no fueron presupuestados al momento del pedido, se enviará un presupuesto adicional que contemple los nuevos requerimientos. El presupuesto NO INCLUYE NADA DE LO QUE NO ESTÁ PRESUPUESTADO.",
+        "Trabajamos con confidencialidad, por lo que al momento que se aprueba el presupuesto, ninguna de las ideas, charlas o propuestas serán mostradas ni contadas a personas ajenas al proyecto por parte de Ailoviu. Solicitamos al cliente mantener la confidencialidad correspondiente, hasta que el mismo se haya presentado al mercado. En el caso de que el material de diseño se entregue a proveedores, estos deberán mantener la confidencialidad y se aclarará que es propiedad del cliente y de Ailoviu.",
+        "En el caso de que el proyecto requiera de diseños específicos, siendo estas obras específicas y artísticas, tales como empapelados, tapices, murales, alfombras, cuadros, se presupuestará aparte del proyecto.",
+        "Durante el proceso creativo se comparte el material vía link, siendo este un documento NO DESCARGABLE.",
+        "El material final se entregará al cliente una vez terminado el proceso de trabajo y una vez saldada la totalidad del proyecto. No se entrega nada a nadie hasta que no esté saldada la totalidad del proyecto. Las presentaciones mostradas son material de Ailoviu y no pueden ser reenviadas a terceros hasta tanto no se entregue el material final al cliente.",
+        "Se entrega el material en vectores, en curvas. No se entregan editables. No se entregan tipografías, nosotros sugerimos la descarga de las mismas a través de la plataforma de compra según la tipografía elegida y sugerida por Ailoviu.",
+        "Al aprobar el presupuesto está explícitamente encargando el trabajo que comenzará con el primer pago. Ailoviu se encarga del diseño, asesoría y gestión, Los precios incluyen gestión, búsqueda de información y de proveedores, asesoramiento en cuanto a materiales, opciones de impresión, cotizaciones y seguimiento del proyecto. Los archivos necesarios para la impresión, producción y/o programación se enviarán a quien corresponda una vez cancelada la totalidad del presupuesto.",
+        "No incluye el trámite de registro de ningún tipo.",
+        "Todos aquellos gastos correspondientes a la impresión, producción, programación, producciones fotográficas, registro de marca o dominio, hosting, redacción, traducción, etc. no están contemplados en este presupuesto. De solicitarlo el cliente, se cotizarán éstos u otros ítems que no estén incluidos. Ailoviu en ningún momento se responsabiliza por los compromisos entre los clientes y los proveedores.",
+        "Este presupuesto tiene una vigencia de 10 días, a partir de los cuales se podrán hacer nuevos ajustes teniendo en cuenta cada caso particular. ¡Gracias!"
+      ];
+
+      // Add the content of general considerations
+      generalConsiderations.forEach((line, index) => {
+          let currentFont = 'normal';
+          // Apply bold to the last line of general considerations
+          if (index === generalConsiderations.length - 1) {
+            currentFont = 'bold';
+          }
+          doc.setFont('helvetica', currentFont);
+          const splitText = doc.splitTextToSize(line, 180);
+          doc.text(splitText, 15, y, { align: 'left' });
+          y += doc.getTextDimensions(splitText).h + 2;
+
+          if (y > 280) { // Check for page overflow
+            doc.addPage();
+            y = 15; // Reset y for new page
+            // No need to re-add the title here. It's a continuation of the same section.
+            doc.setFontSize(8); // Ensure font size is still 8pt for content
+            doc.setFont('helvetica', 'normal'); // Ensure font is normal (unless it's the last line being bolded)
+          }
+      });
+      doc.setFont('helvetica', 'normal'); // Reset font to normal
+
       doc.save('Presupuesto_Ailoviu.pdf');
     });
 
-    // Actualizar tabla en cambios
-    document.querySelector('.space-y-4').addEventListener('change', updateTable);
-    document.querySelector('.space-y-4').addEventListener('input', updateTable);
+    // Event listener para el select de categoría del formulario de entrada
+    document.getElementById('category-input').addEventListener('change', updateDeliverablesSelection);
+
+    // Renderizado inicial de la tabla (vacía al principio)
+    renderServicesTable();
   </script>
 </body>
 </html>
