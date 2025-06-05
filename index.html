@@ -554,7 +554,9 @@
       // Date on top right
       const dateString = `Fecha: ${new Date().toLocaleDateString('es-AR')}`;
       const dateStringWidth = doc.getTextWidth(dateString); // Calculate width separately
-      const dateX = 210 - 15 - dateStringWidth; // Pre-calculate X for date
+      const pageTotalWidth = doc.internal.pageSize.getWidth(); // Get page width
+      const rightMargin = 15; // Define right margin
+      const dateX = pageTotalWidth - rightMargin - dateStringWidth; // Pre-calculate X for date
       doc.text(dateString, dateX, 20); // Align right with 15pt margin
 
       // Get quote number from input field and align to right
@@ -563,7 +565,7 @@
         doc.setFont('helvetica', 'bold'); // Make it bold
         const quoteText = `Presupuesto Nº: ${quoteNumber}`;
         const quoteTextWidth = doc.getTextWidth(quoteText); // Calculate width separately
-        const quoteX = 210 - 15 - quoteTextWidth; // Pre-calculate X for quote number
+        const quoteX = pageTotalWidth - rightMargin - quoteTextWidth; // Pre-calculate X for quote number
         doc.text(quoteText, quoteX, 26); // Place below the date, aligned right
         doc.setFont('helvetica', 'normal'); // Reset font
       }
@@ -677,9 +679,18 @@
 
       y += 5; // Space before totals
       doc.setFont('helvetica', 'bold');
-      doc.text(`Total (USD): ${document.getElementById('total-price').textContent}`, 150, y);
+      // Align Total (USD) to the right
+      const totalText = `Total (USD): ${document.getElementById('total-price').textContent}`;
+      const totalTextWidth = doc.getTextWidth(totalText);
+      const totalX = pageTotalWidth - rightMargin - totalTextWidth;
+      doc.text(totalText, totalX, y);
       y += 7;
-      doc.text(`Plazo Total (Días hábiles): ${totalDaysPdf} días`, 120, y);
+
+      // Align Plazo Total (Días hábiles) to the right
+      const totalDaysText = `Plazo Total (Días hábiles): ${totalDaysPdf} días`;
+      const totalDaysTextWidth = doc.getTextWidth(totalDaysText);
+      const totalDaysX = pageTotalWidth - rightMargin - totalDaysTextWidth;
+      doc.text(totalDaysText, totalDaysX, y);
 
       // --- Sección de "No incluye" en el PDF ---
       const notIncludedCheckboxes = document.querySelectorAll('#not-included-items input[type="checkbox"]:checked');
@@ -731,7 +742,7 @@
       const thanksLines = ['¡Gracias!', 'Ailoviu Design', 'Mendoza - Argentina'];
       thanksLines.forEach(line => {
         const lineWidth = doc.getTextWidth(line);
-        doc.text(line, 210 - 15 - lineWidth, y); // Align right with 15pt margin
+        doc.text(line, pageTotalWidth - rightMargin - lineWidth, y); // Align right with 15pt margin
         y += 5;
       });
       y += 5; // Extra space after thanks message
@@ -787,7 +798,13 @@
       });
       doc.setFont('helvetica', 'normal'); // Reset font to normal
 
-      doc.save('Presupuesto_Ailoviu.pdf');
+      // Construct the filename with the quote number
+      let filename = 'Presupuesto_Ailoviu';
+      if (quoteNumber) {
+        filename += `_Nº${quoteNumber}`;
+      }
+      filename += '.pdf';
+      doc.save(filename);
     });
 
     // Event listener para el select de categoría del formulario de entrada
